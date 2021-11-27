@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import StoreState from "./interfaces/StoreState";
+import { connect } from "react-redux";
+import theThunk from "./services/api";
 
-function App() {
+interface Props {
+  count: number;
+  onClick: () => void;
+  berry: any;
+}
+
+function App({count, onClick, berry}: Props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>Current count: {count}</div>
+      {berry && <div>Current berry: {berry.firmness.name}</div>}
+      <button onClick={onClick}>Increment</button>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state: StoreState) => ({
+  count: state.counter.count,
+  berry: state.berry.berry
+});
+
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onClick: () => {
+      dispatch(theThunk);
+    }
+  }
+};
+
+export const CounterContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

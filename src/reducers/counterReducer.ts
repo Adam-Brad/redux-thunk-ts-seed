@@ -1,11 +1,7 @@
 import {Action} from "redux";
 
-const initialState = { count: 1 };
-
-export const counterReducer = (state = initialState, action: Action<string>) => {
+export const counterReducer = (state = {}, action: Action) => {
   switch (action.type) {
-    case 'INCREMENT':
-      return {count: state.count + 1};
     default:
       return state;
   }

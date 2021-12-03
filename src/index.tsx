@@ -7,13 +7,10 @@ import {Provider} from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { counterReducer } from "./reducers/counterReducer";
-import { berryReducer } from "./reducers/berryReducer";
-
-const rootReducer = combineReducers({counter: counterReducer, berry: berryReducer})
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
+const store = createStore(counterReducer, /* preloadedState, */ composeEnhancers(
   applyMiddleware(thunk)
 ));
 
